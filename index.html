@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>शुभविवाह - प्रथमेश आणि पूजा</title>
+
+  <!-- Google Fonts: Mukta & Yatra One -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Yatra+One&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Ams Barakhadi';
+      src: local('AMS Barakhadi'), local('AmsBarakhadi'), url('fonts/AMS_Barakhadi.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    :root {
+      --maroon: #5b0010;
+      --deep-red: #7a0018;
+      --gold: #d4af37;
+      --light-gold: #fbf5e6;
+      --haldi-bg: #fff6d6;
+      --haldi-dark: #a14e00;
+      --text-dark: #220d04;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      font-family: 'Mukta', sans-serif;
+      background-color: var(--light-gold);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* मोबाईलच्या स्क्रीनचा १००% भाग व्यापणारे फुल स्क्रीन पेजेस */
+    section.full-screen-page {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh; /* मोबाईल ब्राउझर ॲड्रेस बारनुसार तंतोतंत */
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 16px;
+      text-align: center;
+      background-color: var(--light-gold);
+    }
+
+    /* फ्लोटिंग ऑडिओ बटन */
+    .music-btn {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 999;
+      background: rgba(122, 0, 24, 0.9);
+      border: 1.5px solid var(--gold);
+      color: #fff;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+      cursor: pointer;
+    }
+
+    /* ==================== पान १: स्वागत व पाहुणे ==================== */
+    #page1 {
+      border: 6px double var(--gold);
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .ganpati-box {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ganpati-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 5px rgba(212, 175, 55, 0.6));
+    }
+
+    .shlok {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--maroon);
+      line-height: 1.5;
+    }
+
+    .guest-card {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(122, 0, 24, 0.08));
+      border: 1.5px dashed var(--gold);
+      border-radius: 12px;
+      padding: 14px 16px;
+      width: 100%;
+      max-width: 360px;
+      margin: 8px 0;
+    }
+
+    .guest-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--maroon);
+    }
+
+    .guest-name {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--deep-red);
+      margin: 2px 0;
+      line-height: 1.25;
+    }
+
+    .guest-family {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #946800;
+    }
+
+    .invitation-text {
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.5;
+      max-width: 340px;
+    }
+
+    .scroll-hint {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--deep-red);
+      animation: bounce 1.8s infinite;
+      margin-top: 5px;
+    }
+
+    /* ==================== पान २: कपल फोटो व २ सेकंद डिले ==================== */
+    #page2 {
+      padding: 0;
+      justify-content: flex-end;
+      background-color: #000;
+    }
+
+    .couple-full-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    .overlay-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12, 1, 3, 0.95) 28%, rgba(0,0,0,0.15) 65%, rgba(12, 1, 3, 0.6) 100%);
+      z-index: 1;
+    }
+
+    .couple-details-box {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      width: 100%;
+      padding: 24px 16px 36px 16px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+    }
+
+    .couple-details-box.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .person-name {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+      line-height: 1.2;
+    }
+
+    .person-parentage {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f7f7f7;
+      margin-top: 3px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+    }
+
+    .weds-badge {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffc470;
+      margin: 14px 0;
+      letter-spacing: 1.5px;
+    }
+
+    /* ==================== पान ३: हळदी समारंभ ==================== */
+    #page3 {
+      background-color: var(--haldi-bg);
+      border: 6px double #d89000;
+      justify-content: space-around;
+    }
+
+    .toran-container {
+      width: 100%;
+      height: 36px;
+    }
+
+    .haldi-title {
+      font-family: 'Yatra One', cursive;
+      font-size: 2.3rem;
+      color: var(--haldi-dark);
+    }
+
+    .haldi-icon-box {
+      width: 65px;
+      height: 65px;
+      margin: 0 auto;
+    }
+
+    .event-chip {
+      background: rgba(255, 183, 3, 0.25);
+      border-left: 4.5px solid var(--haldi-dark);
+      padding: 10px 14px;
+      width: 100%;
+      max-width: 350px;
+      text-align: left;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .event-chip h4 {
+      color: #783600;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .event-chip p {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-top: 2px;
+      color: #2b1704;
+    }
+
+    /* ==================== पान ४: लग्न व काउंटडाउन ==================== */
+    #page4 {
+      border: 6px double var(--gold);
+      justify-content: space-around;
+    }
+
+    .wedding-title {
+      font-family: 'Ams Barakhadi', 'Yatra One', cursive;
+      font-size: 2.3rem;
+      color: var(--maroon);
+      line-height: 1.2;
+    }
+
+    .wedding-date-highlight {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--deep-red);
+    }
+
+    .countdown-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .count-unit {
+      background: var(--maroon);
+      color: #fff;
+      padding: 8px 4px;
+      border-radius: 8px;
+      flex: 1;
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .count-num {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1.15;
+    }
+
+    .count-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .ghibli-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 8px;
+    }
+
+    .ghibli-art-box {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      overflow: hidden;
+      background-color: #ffd8cc;
+    }
+
+    .ghibli-art-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ==================== पान ५: निमंत्रक & लोकेशन ==================== */
+    #page5 {
+      border: 6px double var(--gold);
+      justify-content: space-around;
+    }
+
+    .nimantrak-box {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      width: 100%;
+      max-width: 340px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    }
+
+    .btn-direction {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--deep-red), var(--maroon));
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 5px 15px rgba(107, 15, 26, 0.35);
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-6px); }
+      60% { transform: translateY(-3px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- पार्श्वसंगीत ऑडिओ -->
+  <button class="music-btn" id="musicToggle">🎵</button>
+  <audio id="bgAudio" loop preload="auto">
+    <source src="https://actions.google.com/sounds/v1/ambiences/temple_bell_extended.ogg" type="audio/ogg">
+  </audio>
+
+  <!-- ==================== पान १: गणपती, श्लोक व पाहुण्यांचे नाव ==================== -->
+  <section class="full-screen-page" id="page1">
+    
+    <!-- गणपती चित्र -->
+    <div class="ganpati-box">
+      <img id="imgGanpati" src="Ganesh Image" alt="श्री गणेश" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/8/8e/Ganesha_Digital_Art.png'">
+    </div>
+
+    <p class="shlok">
+      ॥ श्री गणेशाय नमः ॥<br>
+      वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br>
+      निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥
+    </p>
+
+    <!-- पाहुण्यांचे नाव आणि सहकुटुंब -->
+    <div class="guest-card">
+      <div class="guest-label">|| सस्नेह निमंत्रण ||</div>
+      <div class="guest-name" id="guestNameDisplay">सन्माननीय पाहुणे</div>
+      <div class="guest-family">आणि सहकुटुंब</div>
+    </div>
+
+    <p class="invitation-text">
+      श्रीकृपेने आमच्या लग्नासाठी आपण सपरिवार उपस्थित राहून वधू-वरांस शुभाशीर्वाद द्यावेत, ही नम्र विनंती.
+    </p>
+
+    <div class="scroll-hint">खाली स्क्रोल करा ▼</div>
+  </section>
+
+  <!-- ==================== पान २: कपल फोटो व २ सेकंद डिले ==================== -->
+  <section class="full-screen-page" id="page2">
+    
+    <!-- फुल स्क्रीन कपल फोटो -->
+    <img class="couple-full-bg" id="imgCoupleFull" src="Couple Images" alt="प्रथमेश आणि पूजा">
+    <div class="overlay-gradient"></div>
+
+    <!-- २ सेकंदांनंतर येणारा मजकूर -->
+    <div class="couple-details-box" id="coupleDetails">
+      <div class="person-name">चि. प्रथमेश</div>
+      <div class="person-parentage">गजानन गायकर व लता गायकर यांचे जेष्ठ पुत्र</div>
+
+      <div class="weds-badge"> शुभविवाह </div>
+
+      <div class="person-name">चि. सौ. का. पूजा</div>
+      <div class="person-parentage">परशुराम रिकामे व प्रियंका रिकामे यांची जेष्ठ कन्या</div>
+    </div>
+  </section>
+
+  <!-- ==================== पान ३: हळदी समारंभ ==================== -->
+  <section class="full-screen-page" id="page3">
+    
+    <svg class="toran-container" viewBox="0 0 320 35" preserveAspectRatio="none">
+      <path d="M0 5 Q 40 22 80 5 Q 120 22 160 5 Q 200 22 240 5 Q 280 22 320 5" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
+      <circle cx="20" cy="14" r="5.5" fill="#ff9f1c"/>
+      <circle cx="60" cy="14" r="5.5" fill="#ffe49e"/>
+      <polygon points="40,18 36,28 44,28" fill="#2d6a4f"/>
+      <circle cx="100" cy="14" r="5.5" fill="#ff9f1c"/>
+      <circle cx="140" cy="14" r="5.5" fill="#ffe49e"/>
+      <polygon points="120,18 116,28 124,28" fill="#2d6a4f"/>
+      <circle cx="180" cy="14" r="5.5" fill="#ff9f1c"/>
+      <circle cx="220" cy="14" r="5.5" fill="#ffe49e"/>
+      <polygon points="200,18 196,28 204,28" fill="#2d6a4f"/>
+      <circle cx="260" cy="14" r="5.5" fill="#ff9f1c"/>
+      <circle cx="300" cy="14" r="5.5" fill="#ffe49e"/>
+      <polygon points="280,18 276,28 284,28" fill="#2d6a4f"/>
+    </svg>
+
+    <h2 class="haldi-title">हळदी समारंभ</h2>
+
+    <div class="haldi-icon-box">
+      <svg viewBox="0 0 100 100" fill="none">
+        <ellipse cx="50" cy="30" rx="34" ry="11" fill="#ffd166" stroke="#a14e00" stroke-width="2.5"/>
+        <path d="M16 30 C16 62 30 82 50 82 C70 82 84 62 84 30" fill="#ffb703" stroke="#a14e00" stroke-width="2.5"/>
+        <ellipse cx="50" cy="30" rx="26" ry="7" fill="#e09f12"/>
+        <circle cx="50" cy="23" r="5" fill="#82001a"/>
+      </svg>
+    </div>
+
+    <div class="event-chip">
+      <h4>हळद लावण्याचा मुहूर्त</h4>
+      <p>दिनांक: २४ डिसेंबर २०२६ | सकाळी १०:०० वाजता</p>
+    </div>
+
+    <div class="event-chip">
+      <h4>खालू बाजा व लेझीम नाच</h4>
+      <p>दिनांक: २४ डिसेंबर २०२६ | रात्री ७:०० वाजता</p>
+    </div>
+
+    <div class="scroll-hint" style="color: var(--haldi-dark);">खाली स्क्रोल करा ▼</div>
+  </section>
+
+  <!-- ==================== पान ४: लग्न व काउंटडाउन ==================== -->
+  <section class="full-screen-page" id="page4">
+    
+    <h2 class="wedding-title">शुभ विवाह सोहळा</h2>
+
+    <div class="wedding-date-highlight">
+      शुक्रवार, २५ डिसेंबर २०२६ | सकाळी ११:३२ वा.
+    </div>
+
+    <p style="font-weight: 700; font-size: 0.9rem; color: #555;">मुहूर्तासाठी उरलेला वेळ:</p>
+
+    <!-- मराठी काउंटडाउन -->
+    <div class="countdown-wrapper">
+      <div class="count-unit">
+        <div class="count-num" id="marathiDays">००</div>
+        <div class="count-label">दिवस</div>
+      </div>
+      <div class="count-unit">
+        <div class="count-num" id="marathiHours">००</div>
+        <div class="count-label">तास</div>
+      </div>
+      <div class="count-unit">
+        <div class="count-num" id="marathiMins">००</div>
+        <div class="count-label">मिनिटे</div>
+      </div>
+      <div class="count-unit">
+        <div class="count-num" id="marathiSecs">००</div>
+        <div class="count-label">सेकंद</div>
+      </div>
+    </div>
+
+    <!-- उजव्या कोपऱ्यात कपल गिब्ली आर्ट फोटो -->
+    <div class="ghibli-wrapper">
+      <div class="ghibli-art-box">
+        <img id="imgGhibli" src="images/couple_ghibli.png" alt="Couple Ghibli Art" onerror="this.src='IMG-20251214-WA0014.jpg'">
+      </div>
+    </div>
+
+    <div class="scroll-hint">खाली स्क्रोल करा ▼</div>
+  </section>
+
+  <!-- ==================== पान ५: निमंत्रक & लोकेशन ==================== -->
+  <section class="full-screen-page" id="page5">
+    
+    <h3 style="color: var(--maroon); font-size: 1.6rem; font-weight: 800;">॥ सस्नेह निमंत्रण ॥</h3>
+    
+    <p style="font-size: 1rem; font-weight: 600; max-width: 320px;">
+      आपली उपस्थिती आणि शुभाशीर्वाद हेच आमचे खरे वैभव!
+    </p>
+
+    <div class="nimantrak-box">
+      <p style="font-size: 0.95rem; font-weight: 700; color: var(--maroon);">निमंत्रक</p>
+      <p style="font-size: 1.45rem; font-weight: 800; color: var(--deep-red);">प्रतिक गायकर</p>
+      <p style="font-size: 1.15rem; font-weight: 700; color: #222; margin-top: 2px;">
+        मोबाईल: <a href="tel:890879997" style="color: inherit; text-decoration: none;">८९०८७९९९७</a>
+      </p>
+    </div>
+
+    <div>
+      <p style="font-size: 1rem; font-weight: 700; color: var(--maroon);">विवाह स्थळ:</p>
+      <p style="font-size: 0.95rem; font-weight: 600;">मु. पो. नागलोली, तालुका. श्रीवर्धन, जिल्हा. रायगड - महाराष्ट्र</p>
+    </div>
+
+    <!-- गुगल मॅप Direction लिंक -->
+    <a href="https://maps.app.goo.gl/1vNhdABjD53KNAsh7" target="_blank" class="btn-direction">
+      📍 Direction (नकाशा)
+    </a>
+  </section>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // ================== फोटो लोकेशन सेटिंग्स (येथे तुम्ही पाथ बदलू शकता) ==================
+    const IMAGE_CONFIG = {
+      ganpati: 'Ganesh Image.jpg',          // गणपती चित्राची फाईल लोकेशन
+      coupleFullBg: 'Couple Images.jpg', // दुसऱ्या पानाचा पूर्ण फोटो
+      ghibliArt: 'images/couple_ghibli.png'   // चौथ्या पानावरील कपल गिब्ली आर्ट
+    };
+
+    if (document.getElementById('imgGanpati')) document.getElementById('imgGanpati').src = IMAGE_CONFIG.ganpati;
+    if (document.getElementById('imgCoupleFull')) document.getElementById('imgCoupleFull').src = IMAGE_CONFIG.coupleFullBg;
+    if (document.getElementById('imgGhibli')) document.getElementById('imgGhibli').src = IMAGE_CONFIG.ghibliArt;
+
+    // १. मराठी अंक रूपांतर
+    function toMarathiDigits(num) {
+      const marathiDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+      return num.toString().padStart(2, '0').split('').map(d => marathiDigits[parseInt(d)] || d).join('');
+    }
+
+    // २. URL मधून पाहुण्याचे नाव मिळवणे
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const guest = urlParams.get('guest');
+      if (guest && guest.trim() !== "") {
+        document.getElementById('guestNameDisplay').textContent = decodeURIComponent(guest.replace(/\+/g, ' '));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    // ३. पान २ वरील २ सेकंदांचा डिले
+    let nameLoaded = false;
+    const page2 = document.getElementById('page2');
+    const coupleBox = document.getElementById('coupleDetails');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !nameLoaded) {
+          nameLoaded = true;
+          setTimeout(() => {
+            coupleBox.classList.add('show');
+          }, 2000);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    observer.observe(page2);
+
+    // ४. रिव्हर्स काउंटडाउन (२५ डिसेंबर २०२६, ११:३२ AM)
+    const weddingTarget = new Date('December 25, 2026 11:32:00').getTime();
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const diff = weddingTarget - now;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('marathiDays').textContent = toMarathiDigits(days);
+        document.getElementById('marathiHours').textContent = toMarathiDigits(hours);
+        document.getElementById('marathiMins').textContent = toMarathiDigits(mins);
+        document.getElementById('marathiSecs').textContent = toMarathiDigits(secs);
+      } else {
+        document.getElementById('marathiDays').textContent = '००';
+        document.getElementById('marathiHours').textContent = '००';
+        document.getElementById('marathiMins').textContent = '००';
+        document.getElementById('marathiSecs').textContent = '००';
+      }
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // ५. ऑडिओ कंट्रोल
+    const audio = document.getElementById('bgAudio');
+    const toggleBtn = document.getElementById('musicToggle');
+    let playing = false;
+
+    function playAudio() {
+      if (!playing) {
+        audio.play().then(() => {
+          playing = true;
+          toggleBtn.textContent = '🔊';
+        }).catch(() => {});
+      }
+    }
+
+    window.addEventListener('touchstart', playAudio, { once: true });
+    window.addEventListener('scroll', playAudio, { once: true });
+    window.addEventListener('click', playAudio, { once: true });
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (playing) {
+        audio.pause();
+        toggleBtn.textContent = '🔇';
+        playing = false;
+      } else {
+        audio.play();
+        toggleBtn.textContent = '🔊';
+        playing = true;
+      }
+    });
+  </script>
+</body>
+</html>
